@@ -13,6 +13,10 @@
 		A827963B29B5BE5F00E5017B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A827963929B5BE5F00E5017B /* Main.storyboard */; };
 		A827963D29B5BE6000E5017B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A827963C29B5BE6000E5017B /* Assets.xcassets */; };
 		A827964029B5BE6000E5017B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A827963E29B5BE6000E5017B /* LaunchScreen.storyboard */; };
+		A89BE46229B7A233003F26B4 /* Inter-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A89BE46129B7A233003F26B4 /* Inter-ExtraBold.otf */; };
+		A89BE46429B7A269003F26B4 /* Inter-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A89BE46329B7A269003F26B4 /* Inter-Medium.otf */; };
+		A89BE46629B7A545003F26B4 /* Inter-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A89BE46529B7A545003F26B4 /* Inter-SemiBold.otf */; };
+		A89BE46829B7A788003F26B4 /* Inter-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A89BE46729B7A788003F26B4 /* Inter-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +28,10 @@
 		A827963C29B5BE6000E5017B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A827963F29B5BE6000E5017B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A827964129B5BE6000E5017B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A89BE46129B7A233003F26B4 /* Inter-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-ExtraBold.otf"; sourceTree = "<group>"; };
+		A89BE46329B7A269003F26B4 /* Inter-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Medium.otf"; sourceTree = "<group>"; };
+		A89BE46529B7A545003F26B4 /* Inter-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-SemiBold.otf"; sourceTree = "<group>"; };
+		A89BE46729B7A788003F26B4 /* Inter-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-Regular.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 			children = (
 				A827963329B5BE5F00E5017B /* AppDelegate.swift */,
 				A827963529B5BE5F00E5017B /* SceneDelegate.swift */,
+				A89BE46029B7A1FB003F26B4 /* Fonts */,
 				A827963729B5BE5F00E5017B /* ViewController.swift */,
 				A827963929B5BE5F00E5017B /* Main.storyboard */,
 				A827963C29B5BE6000E5017B /* Assets.xcassets */,
@@ -65,6 +74,17 @@
 				A827964129B5BE6000E5017B /* Info.plist */,
 			);
 			path = "Launch 2";
+			sourceTree = "<group>";
+		};
+		A89BE46029B7A1FB003F26B4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				A89BE46129B7A233003F26B4 /* Inter-ExtraBold.otf */,
+				A89BE46529B7A545003F26B4 /* Inter-SemiBold.otf */,
+				A89BE46729B7A788003F26B4 /* Inter-Regular.otf */,
+				A89BE46329B7A269003F26B4 /* Inter-Medium.otf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +147,11 @@
 			files = (
 				A827964029B5BE6000E5017B /* LaunchScreen.storyboard in Resources */,
 				A827963D29B5BE6000E5017B /* Assets.xcassets in Resources */,
+				A89BE46229B7A233003F26B4 /* Inter-ExtraBold.otf in Resources */,
+				A89BE46429B7A269003F26B4 /* Inter-Medium.otf in Resources */,
+				A89BE46829B7A788003F26B4 /* Inter-Regular.otf in Resources */,
 				A827963B29B5BE5F00E5017B /* Main.storyboard in Resources */,
+				A89BE46629B7A545003F26B4 /* Inter-SemiBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

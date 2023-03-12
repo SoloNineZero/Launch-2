@@ -7,15 +7,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
 
+    // MARK: - Private properties
     private let imageView = UIImageView()
     private let scrollView = UIScrollView()
     private let pageControl = UIPageControl()
     private let button = UIButton()
     private let titleLabel = UILabel()
     
-    let stepText = [
+    private let stepText = [
         "Приложение подберет для вас рецепты вкусных блюд с учетом продуктов, которые есть в вашем холодильнике\n\nТри простых шага для вкусного обеда",
         "Отметьте галочками продукты, которые есть у вас в холодильнике",
         "Выберите понравившееся блюдо и ознакомьтесь с рецептурой. При необходимости докупите недостающие продукты. Список продуктов составит приложение",
@@ -27,12 +28,13 @@ class ViewController: UIViewController {
         scrollView.delegate = self
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         setupImageView()
-        setupTitleLabel()
         setupScrollView()
+        setupTitleLabel()
         setupButton()
         setupPageControl()
     }
 
+    // MARK: Private function
     private func setupScrollView() {
         view.addSubview(scrollView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,10 +43,14 @@ class ViewController: UIViewController {
         scrollView.showsHorizontalScrollIndicator = false
         
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 200),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            scrollView.widthAnchor.constraint(equalToConstant: view.frame.size.width),
+            scrollView.heightAnchor.constraint(equalToConstant: 300)
+//            scrollView.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
+//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
         
         setupTextView(title: stepText[0], position: 0)
@@ -71,26 +77,20 @@ class ViewController: UIViewController {
 //        textView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(textView)
         textView.text = title
-        textView.font = UIFont.systemFont(ofSize: 17)
+        textView.font = UIFont(name: "Inter-Medium", size: 17)
+        
         textView.textColor = .white
         textView.backgroundColor = .clear
         textView.isEditable = false
 
         let screenWidth = UIScreen.main.bounds.width
-        textView.frame = CGRect(x: screenWidth * position + 37, y: 0, width: screenWidth - 120, height: 200)
-//
-//        NSLayoutConstraint.activate([
-//            textView.topAnchor.constraint(equalTo: view.topAnchor),
-//            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            textView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//        ])
+        textView.frame = CGRect(x: screenWidth * position + 39, y: 0, width: screenWidth - 100, height: 200)
     }
     
     private func setupPageControl() {
         view.addSubview(pageControl)
         pageControl.translatesAutoresizingMaskIntoConstraints = false
-        pageControl.numberOfPages = 4
+        pageControl.numberOfPages = stepText.count
         pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0.5765403509, green: 0.7691472173, blue: 0.3339438438, alpha: 1)
         pageControl.tintColor = #colorLiteral(red: 0.4159630239, green: 0.4159630239, blue: 0.4159630239, alpha: 1)
         
@@ -105,13 +105,15 @@ class ViewController: UIViewController {
     private func setupButton() {
         view.addSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont(name: "Inter-SemiBold", size: 17)
         button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(actionStartButton), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
-            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            button.heightAnchor.constraint(equalToConstant: 50)
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 42),
+            button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -42),
+            button.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
     
@@ -119,32 +121,41 @@ class ViewController: UIViewController {
         view.addSubview(titleLabel)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.text = "Easy Recipes"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 42)
+        titleLabel.font = UIFont(name: "Inter-ExtraBold", size: 42)
         titleLabel.textColor = .white
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -40)
+            titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: -100),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 42),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -42)
         ])
     }
     
     private func getReadyButton() {
         button.setTitle("Готов готовить", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.5765403509, green: 0.7691472173, blue: 0.3339438438, alpha: 1)
+        button.titleLabel?.font = UIFont(name: "Inter-Medium", size: 17)
     }
     
     private func getNoReadyButton() {
         button.setTitle("Пропустить", for: .normal)
         button.backgroundColor = .clear
+        button.titleLabel?.font = UIFont(name: "Inter-Regular", size: 17)
     }
     
     @objc private func pageControlDidChange(_ sender: UIPageControl) {
         let current = sender.currentPage
         scrollView.setContentOffset(CGPoint(x: CGFloat(current) * view.frame.size.width, y: 0), animated: true)
     }
+    
+    @objc private func actionStartButton() {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newVC = storyBoard.instantiateViewController(identifier: "tabBar") as! UITabBarController
+        self.present(newVC, animated: true)
+    }
 }
 
+// MARK: UIScrollViewDelegate
 extension ViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         pageControl.currentPage = Int(floorf(Float(scrollView.contentOffset.x) / Float(scrollView.frame.size.width)))
