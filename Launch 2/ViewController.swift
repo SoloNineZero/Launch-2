@@ -16,11 +16,16 @@ final class ViewController: UIViewController {
     private let button = UIButton()
     private let titleLabel = UILabel()
     
-    private let stepText = [
-        "Приложение подберет для вас рецепты вкусных блюд с учетом продуктов, которые есть в вашем холодильнике\n\nТри простых шага для вкусного обеда",
-        "Отметьте галочками продукты, которые есть у вас в холодильнике",
-        "Выберите понравившееся блюдо и ознакомьтесь с рецептурой. При необходимости докупите недостающие продукты. Список продуктов составит приложение",
-        "Приготовьте блюдо, следуя инструкции, и насладитесь вкусом. У вас получилось :)",
+    private let attributedString1 = NSMutableAttributedString(string: "Приложение подберет для вас рецепты вкусных блюд с учетом продуктов, которые есть в вашем холодильнике\n\nТри простых шага для вкусного обеда")
+    private let attributedString2 = NSMutableAttributedString(string: "Отметьте галочками продукты, которые есть у вас в холодильнике")
+    private let attributedString3 = NSMutableAttributedString(string: "Приложение подберет для вас рецепты вкусных блюд с учетом продуктов, которые есть в вашем холодильнике\n\nТри простых шага для вкусного обеда")
+    private let attributedString4 = NSMutableAttributedString(string: "Выберите понравившееся блюдо и ознакомьтесь с рецептурой. При необходимости докупите недостающие продукты. Список продуктов составит приложение")
+    
+    private lazy var stepText = [
+        attributedString1,
+        attributedString2,
+        attributedString3,
+        attributedString4
     ]
     
     override func viewDidLoad() {
@@ -44,15 +49,16 @@ final class ViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
+            scrollView.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 30),
             scrollView.widthAnchor.constraint(equalToConstant: view.frame.size.width),
             scrollView.heightAnchor.constraint(equalToConstant: 300)
         ])
         
-        setupTextView(title: stepText[0], position: 0)
-        setupTextView(title: stepText[1], position: 1)
-        setupTextView(title: stepText[2], position: 2)
-        setupTextView(title: stepText[3], position: 3)
+        setupTextView(title: someFunc()[0], position: 0)
+        setupTextView(title: someFunc()[1], position: 1)
+        setupTextView(title: someFunc()[2], position: 2)
+        setupTextView(title: someFunc()[3], position: 3)
     }
     
     private func setupImageView() {
@@ -68,19 +74,33 @@ final class ViewController: UIViewController {
         ])
     }
     
-    private func setupTextView(title: String, position: CGFloat) {
+    private func setupTextView(title: NSMutableAttributedString, position: CGFloat) {
         let textView = UITextView()
 //        textView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(textView)
-        textView.text = title
-        textView.font = UIFont(name: "Inter-Medium", size: 17)
+        textView.attributedText = title
+        
+//        textView.attributedText = text
         
         textView.textColor = .white
         textView.backgroundColor = .clear
+        textView.font = UIFont(name: "Inter-Medium", size: 17)
         textView.isEditable = false
 
         let screenWidth = UIScreen.main.bounds.width
         textView.frame = CGRect(x: screenWidth * position + 39, y: 0, width: screenWidth - 100, height: 200)
+    }
+    
+    private func someFunc() -> [NSMutableAttributedString] {
+        var textResults: [NSMutableAttributedString] = []
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 5
+        stepText.forEach { text in
+            text.addAttribute(NSAttributedString.Key.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, text.length))
+            
+            textResults.append(text)
+        }
+        return textResults
     }
     
     private func setupPageControl() {
@@ -121,9 +141,10 @@ final class ViewController: UIViewController {
         titleLabel.textColor = .white
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: -100),
+//            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            titleLabel.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 15),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 42),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -42)
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -42),
         ])
     }
     
