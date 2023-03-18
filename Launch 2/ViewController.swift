@@ -12,6 +12,7 @@ final class ViewController: UIViewController {
     // MARK: - Private properties
     private let imageView = UIImageView()
     private let scrollView = UIScrollView()
+    private let scrollView2 = UIScrollView()
     private let pageControl = UIPageControl()
     private let button = UIButton()
     private let titleLabel = UILabel()
@@ -34,6 +35,7 @@ final class ViewController: UIViewController {
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         setupImageView()
         setupScrollView()
+        setupScrollView2()
         setupTitleLabel()
         setupButton()
         setupPageControl()
@@ -45,20 +47,35 @@ final class ViewController: UIViewController {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.contentSize = CGSize(width: Int(UIScreen.main.bounds.width) * stepText.count, height: 300)
         scrollView.isPagingEnabled = true
+        scrollView.backgroundColor = .red
         scrollView.showsHorizontalScrollIndicator = false
         
         NSLayoutConstraint.activate([
-            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
-            scrollView.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 30),
+            scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: view.frame.height / 16.5),
             scrollView.widthAnchor.constraint(equalToConstant: view.frame.size.width),
-            scrollView.heightAnchor.constraint(equalToConstant: 300)
+            scrollView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
         setupTextView(title: someFunc()[0], position: 0)
         setupTextView(title: someFunc()[1], position: 1)
         setupTextView(title: someFunc()[2], position: 2)
         setupTextView(title: someFunc()[3], position: 3)
+    }
+    
+    private func setupScrollView2() {
+        view.addSubview(scrollView2)
+        scrollView2.translatesAutoresizingMaskIntoConstraints = false
+        scrollView2.contentSize = CGSize(width: Int(UIScreen.main.bounds.width) * stepText.count, height: 300)
+        scrollView2.isPagingEnabled = true
+        scrollView2.backgroundColor = .blue
+        scrollView2.alpha = 0.7
+        scrollView2.showsHorizontalScrollIndicator = false
+        
+        NSLayoutConstraint.activate([
+            scrollView2.topAnchor.constraint(equalTo: view.topAnchor, constant: 373),
+            scrollView2.widthAnchor.constraint(equalToConstant: view.frame.size.width),
+            scrollView2.heightAnchor.constraint(equalToConstant: 200)
+        ])
     }
     
     private func setupImageView() {
@@ -76,11 +93,8 @@ final class ViewController: UIViewController {
     
     private func setupTextView(title: NSMutableAttributedString, position: CGFloat) {
         let textView = UITextView()
-//        textView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(textView)
         textView.attributedText = title
-        
-//        textView.attributedText = text
         
         textView.textColor = .white
         textView.backgroundColor = .clear
@@ -111,10 +125,9 @@ final class ViewController: UIViewController {
         pageControl.tintColor = #colorLiteral(red: 0.4159630239, green: 0.4159630239, blue: 0.4159630239, alpha: 1)
         
         NSLayoutConstraint.activate([
-            pageControl.topAnchor.constraint(equalTo: button.topAnchor, constant: -50),
+            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height / 5.25),
             pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
         getNoReadyButton()
     }
     
@@ -126,7 +139,7 @@ final class ViewController: UIViewController {
         button.addTarget(self, action: #selector(actionStartButton), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            button.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -view.frame.height / 8.45),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 42),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -42),
             button.heightAnchor.constraint(equalToConstant: 44)
@@ -141,8 +154,7 @@ final class ViewController: UIViewController {
         titleLabel.textColor = .white
         
         NSLayoutConstraint.activate([
-//            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            titleLabel.topAnchor.constraint(equalToSystemSpacingBelow: view.topAnchor, multiplier: 15),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height / 4.2),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 42),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -42),
         ])
